@@ -1,0 +1,44 @@
+{% include 'admin/admin_header.html' %}
+<br><br><br><br><br><br><br><br><br><br>
+<div class="container d-flex justify-content-center align-items-start py-5" style="min-height: 80vh;">
+    <div class="card shadow-lg w-100 rounded-4 border-0 p-4" style="max-width: 1000px;">
+        <h2 class="text-center text-primary fw-bold mb-4">View Aadhaar Officers</h2>
+
+        {% if data %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle text-center">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Sl No</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Image</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ i.name }}</td>
+                        <td>{{ i.email }}</td>
+                        <td>{{ i.phone }}</td>
+                        <td>
+                            <img src="/static/media{{ i.image }}" alt="Officer Image" style="width: 120px; height: auto;" class="rounded shadow-sm">
+                        </td>
+                        <td>
+                            <a href="/admin_accept_aadharofficer/{{ i.LOGIN_id }}" class="btn btn-success btn-sm me-1">Accept</a>
+                            <a href="/admin_reject_aadharofficer/{{ i.LOGIN_id }}" class="btn btn-danger btn-sm">Reject</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <h5 class="text-center text-muted mt-4">No details available</h5>
+        {% endif %}
+    </div>
+</div>
+{% include 'admin/admin_footer.html' %}

@@ -1,0 +1,170 @@
+{% include 'user/user_header.html' %}
+<br><br><br><br><br>
+<div class="container" style="min-height: 80vh;">
+    <style>
+        .identity-card-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .identity-card, 
+        .card-short {
+            width: 90mm;
+            height: 60mm;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 10px 15px;
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .identity-card {
+            background: linear-gradient(to right, #3498db, #8e44ad);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-header {
+            text-align: center;
+            font-size: 1em;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            padding-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .card-body {
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            display: flex;
+            padding: 5px;
+            justify-content: space-between;
+            font-size: 0.8em;
+        }
+
+        .card-left {
+            width: 30%;
+            text-align: center;
+        }
+
+        .card-image {
+            width: 100%;
+            border-radius: 5px;
+            max-width: 35mm;
+        }
+
+        .card-right {
+            width: 65%;
+            padding-left: 6px;
+            text-align: left;
+        }
+
+        .card-right p {
+            margin: 5px 0;
+        }
+
+        .card-short {
+            background: linear-gradient(to right, #8e44ad, #3498db);
+            font-size: 0.75em;
+        }
+
+        .card-short h4 {
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .card-short-body {
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            text-align: left;
+            padding: 6px;
+            font-size: 1.1em;
+        }
+
+        .card-short-body .indented {
+            padding-left: 25px;
+        }
+
+        .download-btn {
+            margin-top: 10px;
+            padding: 8px 15px;
+            font-size: 0.9em;
+            background-color: #363ce4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            background-color: #30dde0;
+        }
+    </style>
+
+    <center>
+        <h1>Alpha Cards</h1>
+        <br><br>
+
+        {% if data %}
+        <!-- Wrapped for centering on PDF -->
+        <div id="pdf-wrapper" style="display: flex; justify-content: center;">
+            <div class="identity-card-container" style="max-width: 100mm;">
+
+                <!-- Full Identity Card -->
+                <div id="identity-card-container" class="identity-card">
+                    <center><h3>ALPHA CARD</h3></center>
+                    <div class="card-body">
+                        <div class="card-left"><br>
+                            <img src="/static/media{{ data.USER.image }}" alt="Alpha Card Image" class="card-image">
+                        </div>
+                        <div class="card-right"><br>
+                            <h6><strong>Alpha Number:</strong> {{ data.alphanumber }}</h6>
+                            <p><strong>Name:</strong> {{ data.USER.name }}</p>
+                            <p><strong>DOB:</strong> {{ data.USER.dob }}</p>
+                            <p><strong>Gender:</strong> {{ data.USER.gender }}</p>
+                            <p><strong>Issued Date:</strong> {{ data.date }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Short Identity Card -->
+                <div id="identity-card-short" class="card-short">
+                    <div class="card-short-header">
+                        <center><h3>ALPHA CARD</h3></center>
+                    </div>
+                    <div class="card-short-body">
+                        <p><strong>Address:</strong>&nbsp;{{ data.USER.housename }}</p>
+                        <p class="indented">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ data.USER.district }}, {{ data.USER.state }}</p>
+                        <p class="indented">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ data.USER.pin }}</p>
+                        <center>
+                            <h5>Alpha Number: {{ data.alphanumber }}</h5>
+                        </center>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <button class="download-btn" id="download-btn">Download as PDF</button>
+        {% else %}
+        <h4 class="woowfadeInUp" data-wow-delay="0.4s">No details available</h4>
+        {% endif %}
+    </center>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+    <script>
+        document.getElementById('download-btn')?.addEventListener('click', () => {
+            const element = document.getElementById('pdf-wrapper');
+            html2pdf().from(element).set({
+                margin: [10, 10, 10, 10],
+                filename: 'AlphaCard.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            }).save();
+        });
+    </script>
+</div>
+
+{% include 'user/user_footer.html' %}

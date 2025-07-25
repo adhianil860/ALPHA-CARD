@@ -1,0 +1,49 @@
+{% include 'user/user_header.html' %}
+<br><br><br><br><br><br><br><br><br>
+<div class="container py-5" style="min-height: 80vh;">
+    <div class="card shadow-lg rounded-4 p-4 border-0">
+        <h2 class="text-center text-primary fw-bold mb-4">Status</h2>
+
+        {% if data %}
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered text-center align-middle">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Sl No</th>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in data %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.date }}</td>
+                            <td>{{ i.description }}</td>
+                            <td>
+                                <span class="btn btn-sm 
+                                    {% if i.status|lower == 'accepted' %}
+                                        btn-primary text-white
+                                    {% elif i.status|lower == 'rejected' %}
+                                        btn-danger text-white
+                                    {% else %}
+                                        btn-warning text-dark
+                                    {% endif %}">
+                                    {{ i.status }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="text-center mt-4">
+                <h5 class="text-muted">No status details available.</h5>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% include 'user/user_footer.html' %}

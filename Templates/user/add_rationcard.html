@@ -1,0 +1,82 @@
+{% include 'user/user_header.html' %}
+
+<br><br><br><br><br>
+
+<div class="container d-flex justify-content-center align-items-center py-5" style="min-height: 80vh;">
+    <div class="card shadow-lg p-5 rounded-4 border-0" style="width: 100%; max-width: 600px;">
+        <h2 class="text-center text-primary fw-bold mb-4">User Add Ration Card</h2>
+
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="image" class="form-label fw-semibold">Ration Card Image</label>
+                <input type="file" name="image" id="image" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="number" class="form-label fw-semibold">Ration Card Number</label>
+                <input type="text" name="number" id="number" class="form-control" required placeholder="Enter ration card number">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Family Members</label>
+                <div id="family-members">
+                    <div class="member border p-3 rounded mb-2 bg-light">
+                        <div class="row g-2 align-items-center">
+                            <div class="col">
+                                <input type="text" name="names[]" placeholder="Name" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <input type="number" name="ages[]" placeholder="Age" class="form-control" required>
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" class="remove-member btn btn-danger btn-sm">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" id="add-member" class="btn btn-success btn-sm mt-2">Add More</button>
+            </div>
+
+            <div class="text-center mt-4">
+                <input type="submit" name="submit" value="Submit" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm">
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById('add-member').addEventListener('click', function () {
+        const container = document.getElementById('family-members');
+        const div = document.createElement('div');
+        div.classList.add('member', 'border', 'p-3', 'rounded', 'mb-2', 'bg-light');
+
+        div.innerHTML = `
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <input type="text" name="names[]" placeholder="Name" class="form-control" required>
+                </div>
+                <div class="col">
+                    <input type="number" name="ages[]" placeholder="Age" class="form-control" required>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="remove-member btn btn-danger btn-sm">Remove</button>
+                </div>
+            </div>
+        `;
+        container.appendChild(div);
+
+        div.querySelector('.remove-member').addEventListener('click', function () {
+            div.remove();
+        });
+    });
+
+    document.querySelectorAll('.remove-member').forEach(button => {
+        button.addEventListener('click', function () {
+            this.closest('.member').remove();
+        });
+    });
+</script>
+
+{% include 'user/user_footer.html' %}

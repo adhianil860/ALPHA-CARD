@@ -1,0 +1,187 @@
+{% include 'aadhaar/aadhaar_header.html' %}
+<br><br><br><br><br><br><br><br>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+    .custom-container {
+        min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        padding-top: 60px;
+    }
+
+    .card-style {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 700px;
+    }
+
+    h1, h3 {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    .table {
+        width: 100%;
+        margin-top: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 15px rgba(0,0,0,0.05);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .table th, .table td {
+        padding: 15px 20px;
+        text-align: center;
+        font-size: 16px;
+        vertical-align: middle !important;
+    }
+
+    .table th {
+        background-color: rgb(44, 44, 108);
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .table tr:hover {
+        background-color: #f2f2f2;
+        transition: background-color 0.3s ease;
+    }
+
+    .img-preview {
+        width: 120px;
+        border-radius: 8px;
+        border: 2px solid #ddd;
+    }
+</style>
+<!-- 
+<div class="container custom-container">
+    <div class="card-style">
+        <h1 class="text-center">Check Aadhaar Card</h1>
+
+        <form action="" method="post" class="mt-4">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="number" class="form-label"><strong>Enter Alpha Number</strong></label>
+                <input type="text" id="number" name="number" class="form-control" placeholder="e.g. DL123456" required>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" name="submit" class="btn btn-primary px-4">Search</button>
+            </div>
+        </form>
+
+        {% if data %}
+        <table class="table table-bordered mt-5">
+            <thead>
+                <tr>
+                    <th>Licence Number</th>
+                    <th>Licence Image</th>
+                    <th>User Name</th>
+                    <th>User Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>{{ data.LICENCE.number }}</strong></td>
+                    <td>
+                        <a href="/static/media{{ data.LICENCE.image }}" target="_blank">
+                            <img src="/static/media{{ data.LICENCE.image }}" alt="Licence Image" class="img-preview">
+                        </a>
+                    </td>
+                    <td><strong>{{ data.USER.name }}</strong></td>
+                    <td>
+                        <a href="/static/media{{ data.USER.image }}" target="_blank">
+                            <img src="/static/media{{ data.USER.image }}" alt="User Image" class="img-preview">
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        {% elif searched %}
+        <div class="text-center mt-4">
+            <h5 class="text-danger">No details available</h5>
+        </div>
+        {% endif %}
+    </div>
+</div> -->
+
+<div class="container custom-container">
+    <div class="card-style">
+        <h1 class="text-center mb-4">Check Aadhaar Card</h1>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="number" class="form-label"><strong>Enter Alpha Number</strong></label>
+                <input type="text" id="number" name="number" class="form-control" placeholder="e.g. AL123456" required>
+            </div>
+            <div class="text-center">
+                <button type="submit" name="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+
+        {% if searched %}
+            {% if error %}
+                <script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Not Found!',
+                        text: '{{ error }}',
+                        confirmButtonColor: '#d33'
+                    });
+                </script>
+
+            {% elif no_aadhaar %}
+                <script>
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'No Aadhaar Linked',
+                        text: 'This Alpha Card exists, but no Aadhaar Card is linked.',
+                        confirmButtonColor: '#3085d6'
+                    });
+                </script>
+
+            {% elif aadhaar %}
+                <center><h3 class="mt-4">Aadhaar Card Details</h3></center>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Aadhaar Number</th>
+                            <th>Aadhaar Image</th>
+                            <th>User Name</th>
+                            <th>User Image</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>{{ aadhaar.number }}</strong></td>
+                            <td>
+                                <a href="/static/media{{ aadhaar.image }}" target="_blank">
+                                    <img src="/static/media{{ aadhaar.image }}" alt="Aadhaar Image" class="img-preview">
+                                </a>
+                            </td>
+                            <td><strong>{{ data.USER.name }}</strong></td>
+                            <td>
+                                <a href="/static/media{{ data.USER.image }}" target="_blank">
+                                    <img src="/static/media{{ data.USER.image }}" alt="User Image" class="img-preview">
+                                </a>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+{% include 'aadhaar/aadhaar_footer.html' %}

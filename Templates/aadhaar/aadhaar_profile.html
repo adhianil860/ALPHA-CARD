@@ -1,0 +1,43 @@
+{% include 'aadhaar/aadhaar_header.html' %}
+
+<br><br><br><br><br><div class="container" style="min-height: 80vh; display: flex; justify-content: center; align-items: center;">
+    <div class="card shadow-lg p-5 rounded-4 border-0" style="max-width: 800px; width: 100%; background-color: #ffffff;">
+        <h1 class="text-center mb-4">Profile</h1>
+
+        {% if data %}
+        <div class="profile-img mb-4 text-center">
+            <img src="/static/media{{ data.image }}" alt="Profile Image" 
+                 class="rounded-circle shadow-sm"
+                 style="width: 150px; height: 150px; object-fit: cover;">
+        </div>
+        
+        <table class="table table-bordered table-striped table-hover shadow-sm">
+            <tbody>
+                <tr>
+                    <th class="bg-light text-start" style="width: 30%;">Name</th>
+                    <td class="text-start">{{ data.name }}</td>
+                </tr>
+                <tr>
+                    <th class="bg-light text-start">Email</th>
+                    <td class="text-start">{{ data.email }}</td>
+                </tr>
+                <tr>
+                    <th class="bg-light text-start">Phone</th>
+                    <td class="text-start">{{ data.phone }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="text-center mt-4">
+            <a href="aadhaar_edit_profile/<id>" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm">Edit Profile</a>
+        </div>
+
+        {% else %}
+        <h4 class="text-muted text-center">No details available</h4>
+        {% endif %}
+    </div>
+</div>
+
+
+
+{% include 'aadhaar/aadhaar_footer.html' %}

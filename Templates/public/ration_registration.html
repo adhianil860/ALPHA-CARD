@@ -1,0 +1,47 @@
+{% include 'public/public_header.html' %}
+<br><br><br><br>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg p-5 rounded-4 border-0" style="width: 100%; max-width: 700px;">
+        <h2 class="text-center mb-4 text-primary fw-bold">RATION OFFICER REGISTRATION</h2>
+
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Username</label>
+                <input type="text" name="username" class="form-control" placeholder="Enter username" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">First Name</label>
+                <input type="text" name="name" class="form-control" placeholder="Enter first name" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Email</label>
+                <input type="email" name="email" class="form-control" placeholder="Enter email address" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Create password" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Phone</label>
+                <input type="text" name="phone" class="form-control" placeholder="Enter phone number" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Upload Photo</label>
+                <input type="file" name="image" class="form-control" accept="image/*" required>
+            </div>
+
+            <div class="text-center">
+                <input type="submit" name="submit" value="Register" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm">
+            </div>
+        </form>
+    </div>
+</div>
+
+{% include 'public/public__footer.html' %}

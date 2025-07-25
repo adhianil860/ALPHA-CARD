@@ -1,0 +1,85 @@
+{% include 'ration/ration_header.html' %}
+<br><br><br><br><br><br><br><br>
+<div class="container" style="min-height: 80vh;">
+
+<style>
+    .feedback-container {
+        padding: 20px;
+    }
+
+    .feedback-title {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 2em;
+        color: #2c3e50;
+        margin-bottom: 30px;
+    }
+
+    .feedback-table {
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #ffffff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .feedback-table th {
+        background-color: rgb(44, 44, 108);
+        color: white;
+        padding: 12px;
+        text-align: center;
+        font-size: 1em;
+    }
+
+    .feedback-table td {
+        padding: 12px;
+        text-align: center;
+        font-size: 0.95em;
+        border-bottom: 1px solid #ddd;
+        color: #333;
+    }
+
+    .feedback-table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .no-data {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.2em;
+        color: #555;
+        margin-top: 20px;
+    }
+</style>
+
+<center><br><br><br>
+    <h1 class="feedback-title">View Feedback</h1>
+    <br><br>
+
+    {% if data %}
+    <div class="feedback-container">
+        <table class="feedback-table">
+            <tr>
+                <th>Sl no</th>
+                <th>Date</th>
+                <th>Feedback</th>
+            </tr>
+            {% for i in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.date }}</td>
+                <td>{{ i.feedback }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% else %}
+    <h4 class="no-data">No details available</h4>
+    {% endif %}
+</center>
+
+</div>
+
+{% include 'ration/ration_footer.html' %}

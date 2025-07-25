@@ -1,0 +1,38 @@
+{% include 'user/user_header.html' %}
+<br><br><br><br><br><br>
+<div class="container d-flex justify-content-center align-items-center py-5" style="min-height: 80vh;">
+    <div class="card shadow-lg p-5 rounded-4 border-0 w-100" style="max-width: 600px;">
+        {% if can_apply %}
+            <h3 class="text-center text-primary fw-bold mb-4">Apply for Alpha Card</h3>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="description" class="form-label fw-semibold">Request Description</label>
+                    <input type="text" name="description" id="description" class="form-control" placeholder="Enter your request" required>
+                </div>
+
+                <div class="text-center">
+                    <input type="submit" name="submit" value="Submit Request" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm">
+                </div>
+            </form>
+        {% else %}
+            <div class="text-center">
+                <h5 class="text-danger">⚠️ You need to add at least 2 cards to apply for an Alpha Card.</h5>
+            </div>
+        {% endif %}
+
+        <hr class="my-4">
+
+        <div class="text-center">
+            <h6 class="mb-3">🔗 Add Missing Cards:</h6>
+            {% if not has_licence %} <a href="/add_licence" class="btn btn-outline-secondary btn-sm mx-1">Add Licence</a> {% endif %}
+            {% if not has_voterid %} <a href="/add_voterid" class="btn btn-outline-secondary btn-sm mx-1">Add Voter ID</a> {% endif %}
+            {% if not has_rationcard %} <a href="/add_rationcard" class="btn btn-outline-secondary btn-sm mx-1">Add Ration Card</a> {% endif %}
+            {% if not has_aadhaar %} <a href="/add_aadhaarcard" class="btn btn-outline-secondary btn-sm mx-1">Add Aadhaar Card</a> {% endif %}
+        </div>
+    </div>
+</div>
+
+
+{% include 'user/user_footer.html' %}

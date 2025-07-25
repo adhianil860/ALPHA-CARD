@@ -1,0 +1,68 @@
+{% include 'user/user_header.html' %}
+<br><br><br><br><br><div class="container" style="min-height: 80vh; display: flex; justify-content: center; align-items: center;">
+    <div class="card shadow-lg p-5 rounded-4 border-0" style="max-width: 800px; width: 100%; background-color: #ffffff;">
+        <h1 class="text-center mb-4 text-primary fw-bold">Profile</h1>
+
+        {% if data %}
+        <!-- Profile Image -->
+        <div class="profile-img mb-4 text-center">
+            <img src="/static/media{{ data.image }}" alt="Profile Image" 
+                 class="rounded-circle shadow-sm"
+                 style="width: 150px; height: 150px; object-fit: cover;">
+        </div>
+
+        <!-- Profile Details Table -->
+        <table class="table table-bordered table-striped table-hover shadow-sm">
+            <tbody>
+                <tr>
+                    <th class="bg-light text-start" style="width: 30%;">Name</th>
+                    <td class="text-start">{{ data.name }}</td>
+                </tr>
+                <tr>
+                    <th class="bg-light text-start">Gender</th>
+                    <td class="text-start">{{ data.gender }}</td>
+                </tr>
+                <tr>
+                    <th class="bg-light text-start">Email</th>
+                    <td class="text-start">{{ data.email }}</td>
+                </tr>
+                <tr>
+                    <th class="bg-light text-start">Phone</th>
+                    <td class="text-start">{{ data.phone }}</td>
+                </tr>
+                <tr>
+                    <th class="bg-light text-start">Date of Birth</th>
+                    <td class="text-start">{{ data.dob }}</td>
+                </tr>
+                <tr>
+                    <th class="bg-light text-start">House Name</th>
+                    <td class="text-start">{{ data.housename }}</td>
+                </tr>
+                <tr>
+                    <th class="bg-light text-start">District</th>
+                    <td class="text-start">{{ data.district }}</td>
+                </tr>
+                <tr>
+                    <th class="bg-light text-start">State</th>
+                    <td class="text-start">{{ data.state }}</td>
+                </tr>
+                <tr>
+                    <th class="bg-light text-start">PIN</th>
+                    <td class="text-start">{{ data.pin }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Edit Button -->
+        <div class="text-center mt-4">
+            <a href="/edit_profile" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm">Edit Profile</a>
+        </div>
+
+        {% else %}
+        <h4 class="text-muted text-center">No details available</h4>
+        {% endif %}
+    </div>
+</div>
+
+
+{% include 'user/user_footer.html' %}

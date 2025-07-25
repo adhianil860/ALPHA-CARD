@@ -1,0 +1,53 @@
+{% include 'admin/admin_header.html' %}
+<br><br><br><br><br><br> <br><br><br><br><br><br> 
+<div class="container d-flex justify-content-center align-items-start py-5" style="min-height: 80vh;">
+    <div class="card shadow-lg w-100 rounded-4 border-0 p-4" style="max-width: 1200px;">
+        <h2 class="text-center text-primary fw-bold mb-4">View Users</h2>
+
+        {% if data %}
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-primary text-center">
+                    <tr>
+                        <th>Sl. No</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Image</th>
+                        <th>House Name</th>
+                        <th>State</th>
+                        <th>District</th>
+                        <th>PIN</th>
+                        <th>Date of Birth</th>
+                        <th>Gender</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data %}
+                    <tr>
+                        <td class="text-center">{{ forloop.counter }}</td>
+                        <td>{{ i.name }}</td>
+                        <td>{{ i.email }}</td>
+                        <td>{{ i.phone }}</td>
+                        <td class="text-center">
+                            <img src="/static/media{{ i.image }}" alt="User Image" class="img-thumbnail rounded" style="width: 100px; height: auto;">
+                        </td>
+                        <td>{{ i.housename }}</td>
+                        <td>{{ i.state }}</td>
+                        <td>{{ i.district }}</td>
+                        <td>{{ i.pin }}</td>
+                        <td>{{ i.dob }}</td>
+                        <td>{{ i.gender }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center mt-4">
+            <h5 class="text-muted fw-semibold wow fadeInUp" data-wow-delay="0.4s">No details available</h5>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% include 'admin/admin_footer.html' %}
